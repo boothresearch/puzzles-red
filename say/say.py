@@ -47,7 +47,8 @@ def say(number):
         elif number>99:
             first_digit = int(number/100)
             second_digit = number - first_digit*100
-            words = dict_one_ten[number] + ' hundred ' + return_string(second_digit)
+            print('second digit :', second_digit)
+            words = dict_one_ten[first_digit] + ' hundred ' + return_string(second_digit)
         return(words)
 
     def split_number(number):
@@ -62,6 +63,8 @@ def say(number):
         return(chunk)
 
     def add_scaling(chunks):
+        if len(chunks)==1: 
+            return chunks
         if len(chunks)==2:
             return chunks[0] + 'thousand' + chunks[1]
         elif len(chunks)==3:
@@ -70,13 +73,13 @@ def say(number):
             return chunks[0] + 'billion' + chunks[1] + 'million' + chunks[2] + 'thousand' + chunks[3]
         elif len(chunks)==5:
             return  chunks[0] + 'trillion'+ chunks[1] + 'billion' + chunks[2] + 'million' + chunks[3] + 'thousand' + chunks[4]
-
-
-
-
+  
     if (number>999999999999)|(number<0):
          print('Number not in correct range')
          return False
     else:
-        say = return_string(number)
-        return(say)
+        chunks = split_number(number)
+        chunks = [return_string(chunk) for chunk in chunks]
+        chunks = add_scaling(chunks)
+        print('The word is: ', chunks)
+        return(chunks)
