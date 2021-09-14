@@ -55,31 +55,31 @@ def say(number):
         import re
         str_number = str(number)
         chunk = re.findall('.{1,3}', str_number[::-1])
-        for i, string in enumerate(chunk):
-            print(i)
-            print(string)
-            chunk[i] = int(string[::-1])
-            chunk = chunk[::-1]
-        return(chunk)
+        result = list()
+        for string in chunk:
+            result.append(int(string[::-1]))
+        result = result[::-1]
+        return(result)
 
     def add_scaling(chunks):
         if len(chunks)==1: 
             return chunks
         if len(chunks)==2:
-            return chunks[0] + 'thousand' + chunks[1]
+            return chunks[0] + ' thousand ' + chunks[1]
         elif len(chunks)==3:
-            return chunks[0] + 'million' + chunks[1] + 'thousand' + chunks[2]
+            return chunks[0] + ' million ' + chunks[1] + ' thousand ' + chunks[2]
         elif len(chunks)==4:
-            return chunks[0] + 'billion' + chunks[1] + 'million' + chunks[2] + 'thousand' + chunks[3]
+            return chunks[0] + ' billion ' + chunks[1] + ' million ' + chunks[2] + ' thousand ' + chunks[3]
         elif len(chunks)==5:
-            return  chunks[0] + 'trillion'+ chunks[1] + 'billion' + chunks[2] + 'million' + chunks[3] + 'thousand' + chunks[4]
+            return  chunks[0] + ' trillion '+ chunks[1] + ' billion ' + chunks[2] + 'million' + chunks[3] + ' thousand ' + chunks[4]
   
     if (number>999999999999)|(number<0):
          print('Number not in correct range')
          return False
     else:
         chunks = split_number(number)
-        chunks = [return_string(chunk) for chunk in chunks]
+        print('Chunks ', chunks)
+        chunks = [return_string(int(chunk)) for chunk in chunks]
         chunks = add_scaling(chunks)
         print('The word is: ', chunks)
         return(chunks)
